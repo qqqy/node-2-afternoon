@@ -4,12 +4,10 @@ const massive = require('massive')
 require('dotenv').config();
 const {PORT , CONNECTION_STRING} = process.env
 const app = express()
+const writeCtrl = require('./controllers/writeDataController')
 app.use(bodyParser.json())
 
-app.get('/api/initalget' , (req, res) => {
-  console.log("hit")
-  res.sendStatus(200)
-})
+app.post('/api/create_product' , writeCtrl.create_product)
 
 massive(CONNECTION_STRING).then(connection => {
   app.set('db' , connection)
